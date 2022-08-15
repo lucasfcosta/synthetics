@@ -79,6 +79,12 @@ journey('journey 1', () => {
     expect(content1).toEqual(content2);
   });
 
+  it('bundle should be idempotent', async () => {
+    const content1 = await bundler.build(journeyFile, generateTempPath());
+    const content2 = await bundler.build(journeyFile, generateTempPath());
+    expect(content1).toEqual(content2);
+  });
+
   it('throw errors on incorrect path', async () => {
     try {
       await bundler.build(join(PROJECT_DIR, 'blah.ts'), generateTempPath());
